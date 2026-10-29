@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Cute Study Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Pacifico&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#ffe3f1;--bg2:#e9e1ff;--card:rgba(255,255,255,.78);--bd:#ffc2e0;--tx:#4a2c4f;--mu:#9a7aa0;--p:#ff6fb5;--p2:#b794ff;--ok:#7be0b0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg1:#2a1530;--bg2:#1c1840;--card:rgba(60,35,75,.75);--bd:#6b3a82;--tx:#ffeaf6;--mu:#c9a6d6}}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:Quicksand,system-ui,"Segoe UI",sans-serif;color:var(--tx);background:linear-gradient(135deg,var(--bg1),var(--bg2));background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+.fl{position:fixed;top:-30px;font-size:20px;opacity:.6;animation:fall linear infinite;z-index:0;pointer-events:none}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+main{position:relative;z-index:1;max-width:980px;margin:auto;padding:16px 14px 70px}
+h1{font-family:Pacifico,cursive;font-weight:400;font-size:clamp(28px,6vw,44px);margin:0;color:var(--p)}
+h2{margin:0 0 10px;font-size:20px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hi{color:var(--mu);font-size:14px}
+input,button{font:inherit;color:inherit}
+input{background:rgba(255,255,255,.6);border:2px solid var(--bd);border-radius:12px;padding:8px 10px;width:100%;color:#4a2c4f}
+.card{background:var(--card);border:2px solid var(--bd);border-radius:24px;padding:16px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(255,111,181,.15)}
+.btn{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border:0;border-radius:99px;padding:9px 16px;cursor:pointer;font-weight:700;transition:transform .15s}
+.btn:active{transform:scale(.93)}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:14px 0}
+.day{background:var(--card);border:2px solid var(--bd);border-radius:16px;padding:7px 2px;text-align:center;cursor:pointer;font-weight:700;font-size:13px}
+.day small{display:block;color:var(--mu);font-size:11px}
+.day.on{background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;border-color:transparent;transform:translateY(-3px)}
+.day.on small{color:#fff}
+.day i{display:block;height:5px;border-radius:9px;background:var(--ok);margin:4px 8px 0;transform-origin:left;font-style:normal}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.hero,.two{grid-template-columns:1fr!important}}
+.ringw{display:flex;gap:14px;align-items:center}
+.ringw svg{width:120px;height:120px;transform:rotate(-90deg);flex:none}
+.ringw circle{fill:none;stroke-width:11;stroke-linecap:round}
+#rp{stroke:var(--p);stroke-dasharray:314;stroke-dashoffset:314;transition:stroke-dashoffset .7s}
+.big{font-size:34px;font-weight:700;color:var(--p)}
+.bar{height:14px;border-radius:99px;background:rgba(183,148,255,.25);overflow:hidden;margin:8px 0}
+.bar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:99px;transition:width .5s}
+.mu{color:var(--mu);font-size:13px}
+.rem{margin:14px 0;padding:14px;border-radius:20px;background:linear-gradient(135deg,#fff0a8,#ffd1e6);color:#5a2a4a;border:2px dashed #ff6fb5;animation:wig 3s infinite;font-weight:700}
+.rem.good{background:linear-gradient(135deg,#d6ffe9,#e8e0ff);animation:none}
+@keyframes wig{0%,90%,100%{transform:none}93%{transform:rotate(-1deg)}96%{transform:rotate(1deg)}}
+.blk{margin-top:12px}.blk h3{margin:0 0 4px;font-size:17px}
+.blk.act{outline:3px solid var(--p2);outline-offset:3px;border-radius:26px}
+.t{color:var(--p);font-weight:700;font-size:13px}
+.it{display:flex;gap:10px;align-items:center;padding:7px 4px;cursor:pointer;border-radius:12px}
+.it:hover{background:rgba(255,111,181,.1)}
+.bx{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--p);display:grid;place-items:center;color:transparent;font-size:14px;transition:.25s}
+.it.d .bx{background:var(--p);color:#fff;transform:scale(1.15) rotate(360deg)}
+.it.d span{text-decoration:line-through;opacity:.5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.row{display:flex;gap:8px;margin:8px 0}
+.row input{flex:1}
+.chip{display:inline-block;background:rgba(183,148,255,.25);border-radius:99px;padding:3px 10px;margin:3px 3px 0 0;font-size:12px}
+.wk{display:flex;align-items:flex-end;gap:6px;height:70px;margin-top:8px}
+.wk div{flex:1;background:linear-gradient(var(--p2),var(--p));border-radius:8px 8px 3px 3px;min-height:3px;position:relative}
+.wk div span{position:absolute;bottom:-18px;left:0;right:0;text-align:center;font-size:10px;color:var(--mu)}
+.mood span{font-size:26px;cursor:pointer;margin-right:6px;filter:grayscale(1);transition:.2s}
+.mood span.on{filter:none;transform:scale(1.3)}
+.q{text-align:center;margin-top:26px;color:var(--mu);font-style:italic}
+.x{margin-left:auto;cursor:pointer;color:var(--mu);font-size:12px}
+.cf{position:fixed;top:-20px;font-size:24px;z-index:9;animation:fall 2.6s ease-in forwards;pointer-events:none}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body>
+<main>
+<div class="top"><div><h1>My Study Planner ♡</h1><div class="hi" id="hi"></div></div>
+<div style="max-width:200px"><input id="nm" placeholder="Your name ✿" maxlength="20"></div></div>
+
+<div class="week" id="wk"></div>
+<div id="rem"></div>
+
+<div class="hero">
+ <div class="card"><h2>🎯 Today's Target</h2>
+  <div class="ringw"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" stroke="rgba(183,148,255,.3)"/><circle id="rp" cx="60" cy="60" r="50"/></svg>
+  <div><div class="big" id="pc">0%</div><div class="mu" id="tg"></div>
+  <div class="row" style="align-items:center"><span class="mu">Target %</span><input id="tgi" type="number" min="10" max="100" style="width:80px;flex:none"></div></div></div></div>
+ <div class="card"><h2 id="dh">Today</h2><div style="font-size:54px;line-height:1">🌸📚🎀</div>
+  <div class="mu" id="clk" style="margin-top:6px"></div><div class="mu" id="left"></div>
+  <div class="mood" id="mood" style="margin-top:8px"></div></div>
+</div>
+
+<div id="plan"></div>
+
+<div class="two">
+ <div class="card"><h2>⏱️ Study Time Tracker</h2>
+  <div class="mu" id="sg"></div><div class="bar"><b id="sb"></b></div>
+  <div class="row"><input id="sh" type="number" min="0" placeholder="hrs"><input id="sm" type="number" min="0" placeholder="mins"><button class="btn" id="sa">Add</button></div>
+  <div id="sl"></div>
+  <div class="row" style="align-items:center"><span class="mu">Daily goal (hrs)</span><input id="sgi" type="number" min="1" max="16" style="width:80px;flex:none"></div>
+  <div class="mu" style="margin-top:6px">This week (hrs)</div><div class="wk" id="swk" style="margin-bottom:20px"></div></div>
+ <div class="card"><h2>📱 Phone Screen Time</h2>
+  <div class="mu" id="pg"></div><div class="bar"><b id="pb"></b></div>
+  <div class="row"><input id="ph" type="number" min="0" placeholder="hrs"><input id="pm" type="number" min="0" placeholder="mins"><button class="btn" id="pa">Set today</button></div>
+  <div class="row" style="align-items:center"><span class="mu">Limit (hrs)</span><input id="pgi" type="number" min="1" max="12" style="width:80px;flex:none"></div>
+  <div class="mu" style="margin-top:6px">This week (hrs)</div><div class="wk" id="pwk" style="margin-bottom:20px"></div>
+  <div class="mu">Tip: check Settings → Screen Time at night and enter it here 💗</div></div>
+</div>
+<div class="q" id="q"></div>
+</main>
+<script>
+const $=s=>document.querySelector(s),DN=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const W=[
+[8.5,15,"📚","Class / PW Lectures",["Attend all lectures","Write short notes","Note down doubts"],1],
+[15,16,"📝","Revision of All Subjects",["Revise every subject","Quick formulas / key points"],1],
+[16,18.5,"🌸","Free Time & Rest",["Do whatever I love","Snack, water & rest"],0],
+[18.5,22.5,"🍽️","Dinner & Chill",["Dinner & family time","Get ready for night session"],0],
+[22.5,25.5,"🌙","Question Practice & Revision",["Solve practice questions","Revise mistakes","Update doubt list"],1]];
+const SUN=[[0,24,"🧸","Off Day · Track it your way",["Sleep in & relax","Self-care: skincare, hair, nails","Do something fun","Meet / call someone I love","Drink 8 glasses of water","Light 30-min revision (optional)"],0]];
+const Q=["Small steps every day add up ✨","You’re doing better than you think 💗","Rest is part of the plan 🌷","Consistency > perfection 🎀","Future you says thank you 🌸"];
+let S={};try{S=JSON.parse(localStorage.getItem("cute")||"{}")}catch(e){}
+S.d=S.d||{};S.tg=S.tg||80;S.sg=S.sg||6;S.pg=S.pg||3;S.sun=S.sun||[];
+const sv=()=>{try{localStorage.setItem("cute",JSON.stringify(S))}catch(e){}};
+const key=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function now(){const n=new Date();let h=n.getHours()+n.getMinutes()/60,b=new Date(n);if(h<2){h+=24;b.setDate(b.getDate()-1)}return{h,b,n}}
+function mon(b){const m=new Date(b);m.setDate(m.getDate()-((m.getDay()+6)%7));return m}
+let sel=0;const N=now();sel=(N.b.getDay()+6)%7;
+const dates=()=>[...Array(7)].map((_,i)=>{const d=mon(now().b);d.setDate(d.getDate()+i);return d});
+const D=()=>{const k=key(dates()[sel]);return S.d[k]=S.d[k]||{t:{},s:[],p:null,m:""}};
+const blocks=()=>sel==6?SUN:W;
+function tasks(){const o=[];blocks().forEach((b,j)=>{b[4].forEach((t,m)=>o.push({id:j+"_"+m,j,t,nag:b[5],end:b[1]}));if(sel==6&&j==0)S.sun.forEach((t,m)=>o.push({id:"c"+m,j:0,t,nag:0,end:24,c:m}))});return o}
+const pctOf=d=>{const k=key(d),x=S.d[k];if(!x)return 0;const i=d.getDay()==0?6:d.getDay()-1;const save=sel;sel=i;const T=tasks();sel=save;return T.length?Math.round(T.filter(t=>x.t[t.id]).length/T.length*100):0};
+const fm=m=>Math.floor(m/60)+"h "+String(m%60).padStart(2,"0")+"m";
+const f=h=>{h%=24;const a=Math.floor(h),m=Math.round((h-a)*60);return((a%12)||12)+":"+String(m).padStart(2,"0")+(a>=12?" PM":" AM")};
+function render(){
+ const ds=dates(),d=D(),T=tasks(),N=now();
+ $("#wk").innerHTML=ds.map((x,i)=>`<div class="day${i==sel?" on":""}" data-i="${i}">${DN[i]}<small>${x.getDate()}</small><i style="width:${pctOf(x)*.8}%"></i></div>`).join("");
+ $("#dh").textContent=sel==6?"🧸 Sunday · Off Day":DN[sel]+" · "+ds[sel].toLocaleDateString([], {day:"numeric",month:"short"});
+ const done=T.filter(t=>d.t[t.id]).length,p=T.length?Math.round(done/T.length*100):0;
+ $("#pc").textContent=p+"%";$("#rp").style.strokeDashoffset=314-314*p/100;
+ $("#tg").textContent=p>=S.tg?"Target reached! 🎉":(S.tg-p)+"% more to hit your target";$("#tgi").value=S.tg;
+ $("#plan").innerHTML=blocks().map((b,j)=>{const act=key(ds[sel])==key(N.b)&&N.h>=b[0]&&N.h<b[1];
+  const its=T.filter(t=>t.j==j);return `<div class="card blk${act?" act":""}"><div class="t">${sel==6?"All day":f(b[0])+" – "+f(b[1])}${act?" · NOW 💫":""}</div><h3>${b[2]} ${b[3]}</h3>`+its.map(t=>`<div class="it${d.t[t.id]?" d":""}" data-id="${t.id}"><div class="bx">✓</div><span>${t.t}</span>${t.c!=null?`<em class="x" data-c="${t.c}">remove</em>`:""}</div>`).join("")+(sel==6&&j==0?`<div class="row"><input id="ci" placeholder="Add your own off-day thing ♡"><button class="btn" id="ca">Add</button></div>`:"")+`</div>`}).join("");
+ const isToday=key(ds[sel])==key(N.b);let r="";
+ if(isToday&&sel<6){const miss=T.filter(t=>t.nag&&t.end<=N.h&&!d.t[t.id]);const end=25.5,left=Math.max(0,Math.round((end-N.h)*60));
+  $("#left").textContent="⏳ Time left in your day: "+fm(left);
+  if(miss.length)r=`<div class="rem">💌 Missed: ${miss.slice(0,4).map(m=>m.t).join(", ")}${miss.length>4?" +"+(miss.length-4)+" more":""}. You still have ${fm(left)} — do them now, you can do it! 🌷</div>`;
+  else if(N.h>15&&p<100)r=`<div class="rem good">✨ You’re on track! ${fm(left)} left today.</div>`}
+ else $("#left").textContent="";
+ if(isToday&&sel==6)$("#left").textContent="🧸 Enjoy your off day, but tick what you do!";
+ $("#rem").innerHTML=r;
+ const sm=d.s.reduce((a,x)=>a+x,0);$("#sg").textContent=`${fm(sm)} of ${S.sg}h goal`;$("#sb").style.width=Math.min(100,sm/(S.sg*60)*100)+"%";$("#sgi").value=S.sg;
+ $("#sl").innerHTML=d.s.map((x,i)=>`<span class="chip">${fm(x)} <b class="x" data-s="${i}">✕</b></span>`).join("");
+ const ph=d.p||0;$("#pg").textContent=d.p==null?"Not entered yet · limit "+S.pg+"h":`${fm(ph)} today · limit ${S.pg}h`+(ph>S.pg*60?" 😬 over":" 💚");
+ $("#pb").style.width=Math.min(100,ph/(S.pg*60)*100)+"%";$("#pb").style.background=ph>S.pg*60?"#ff5c7a":"";$("#pgi").value=S.pg;
+ const wk=(fn,mx)=>ds.map((x,i)=>{const v=fn(S.d[key(x)]);return `<div style="height:${Math.max(3,Math.min(100,v/mx*100))}%"><span>${DN[i][0]}</span></div>`}).join("");
+ $("#swk").innerHTML=wk(x=>x?x.s.reduce((a,b)=>a+b,0):0,Math.max(S.sg*60,60));$("#pwk").innerHTML=wk(x=>x&&x.p||0,Math.max(S.pg*60,60));
+ $("#mood").innerHTML="<span class='mu'>Mood: </span>"+["😊","😐","😩","🥰"].map(e=>`<span class="${d.m==e?"on":""}" data-m="${e}">${e}</span>`).join("");
+ $("#hi").textContent=(S.n?"Hi "+S.n+"! ":"Hi cutie! ")+"Tick things off & watch your % grow 🌷";
+ return p}
+function confetti(){["🎀","🌸","💖","✨","🌷"].forEach(e=>{for(let k=0;k<4;k++){const s=document.createElement("span");s.className="cf";s.textContent=e;s.style.left=Math.random()*95+"vw";s.style.animationDelay=Math.random()*.8+"s";document.body.appendChild(s);setTimeout(()=>s.remove(),3600)}})}
+document.addEventListener("click",e=>{const t=e.target,d=D();
+ if(t.closest(".day")){sel=+t.closest(".day").dataset.i;return render()}
+ if(t.dataset.c!=null&&t.classList.contains("x")){S.sun.splice(+t.dataset.c,1);sv();return render()}
+ if(t.dataset.s!=null){d.s.splice(+t.dataset.s,1);sv();return render()}
+ if(t.dataset.m){d.m=d.m==t.dataset.m?"":t.dataset.m;sv();return render()}
+ const it=t.closest(".it");if(it){const id=it.dataset.id;d.t[id]=!d.t[id];sv();const p=render();if(d.t[id]&&p>=S.tg&&!D().c){D().c=1;sv();confetti()}return}
+ if(t.id=="sa"){const m=(+$("#sh").value||0)*60+(+$("#sm").value||0);if(m>0){d.s.push(m);$("#sh").value=$("#sm").value="";sv();render()}}
+ if(t.id=="pa"){const m=(+$("#ph").value||0)*60+(+$("#pm").value||0);d.p=m;$("#ph").value=$("#pm").value="";sv();render()}
+ if(t.id=="ca"){const v=$("#ci").value.trim();if(v){S.sun.push(v.slice(0,60));sv();render()}}});
+$("#tgi").onchange=e=>{S.tg=Math.min(100,Math.max(10,+e.target.value||80));sv();render()};
+$("#sgi").onchange=e=>{S.sg=Math.max(1,+e.target.value||6);sv();render()};
+$("#pgi").onchange=e=>{S.pg=Math.max(1,+e.target.value||3);sv();render()};
+$("#nm").value=S.n||"";$("#nm").oninput=e=>{S.n=e.target.value;sv();$("#hi").textContent=(S.n?"Hi "+S.n+"! ":"Hi cutie! ")+"Tick things off & watch your % grow 🌷"};
+$("#q").textContent=Q[new Date().getDate()%Q.length];
+for(let i=0;i<14;i++){const s=document.createElement("span");s.className="fl";s.textContent=["🌸","✨","💗","🎀","🦋"][i%5];s.style.left=Math.random()*100+"vw";s.style.animationDuration=14+Math.random()*14+"s";s.style.animationDelay=-Math.random()*20+"s";document.body.appendChild(s)}
+setInterval(()=>{$("#clk").textContent=new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});},1000);
+setInterval(render,60000);render();
+</script></body></html>
